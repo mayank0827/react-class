@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
+import { FavouriteMovieContext } from "../Context/FavouriteMovieContext";
 
 
-const MovieList = ({ favourites, onAdd, onDelete }) => {
+const MovieList = () => {
+    const { favourites, onAdd, onDelete } = useContext(FavouriteMovieContext);
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {

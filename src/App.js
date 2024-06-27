@@ -23,37 +23,7 @@ import { useEffect } from "react";
 // ]);
 
 function App() {
-  const [favourites, setFavourites] = useState({});
-
-  const updateLocalStorage = (data) => {
-    localStorage.setItem('favourites', JSON.stringify(data));
-  }
-
-  const handleAddFavourite = (movie) => {
-    setFavourites((prevData) => ({
-      ...prevData,
-      [movie.id]: movie,
-    }));
-  };
-
-  const handleDeleteFavourite = (movie) => {
-    setFavourites((prevData) => {
-      const prevDataCopy = { ...prevData };
-      delete prevDataCopy[movie.id];
-      return prevDataCopy;
-    });
-  };
-
-  useEffect(() => {
-    const persistedFavourites = localStorage.getItem('favourites');
-    if (persistedFavourites) {
-      setFavourites(JSON.parse(persistedFavourites));
-    }
-  }, []);
-
-  useEffect(() => {
-    updateLocalStorage(favourites);
-  }, [favourites]);
+  
 
   return (
     <div className="App">
@@ -63,11 +33,7 @@ function App() {
           <Route
             path="/"
             element={
-              <MovieList
-                favourites={favourites}
-                onAdd={handleAddFavourite}
-                onDelete={handleDeleteFavourite}
-              />
+              <MovieList />
             }
           />
           <Route path="/movie-list" element={<Navigate to={"/"} />} />
@@ -75,7 +41,7 @@ function App() {
           <Route
             path="/favourite"
             element={
-              <Favourite favourites={favourites} onDelete={handleDeleteFavourite} />
+              <Favourite />
             }
           />
           <Route path="*" element={<h1>Page not found!</h1>} />
